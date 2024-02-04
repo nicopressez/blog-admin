@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Homepage from "./components/Homepage";
 import Form from "./components/Form";
+import Login from "./components/Login";
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const Router = () => {
                 {
                     path: '/edit',
                     element: <Form />
+                },
+                {
+                    path: '/login',
+                    element: <Login />,
                 }
             ]
         }
