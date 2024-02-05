@@ -30,7 +30,7 @@ const Edit = () => {
         if (!auth) navigate('/login')
         fetchPost()
         
-    }, [id])
+    }, [id, navigate, auth])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -79,16 +79,19 @@ const Edit = () => {
     }
     if (post && !edited && auth && admin) return (
       <div>
-        <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title:</label>
-      <input type="text" name="title" id="title" defaultValue={post.title}></input>
-      <label htmlFor="text">Post content:</label>
-      <textarea name="text" id="text" defaultValue={post.text}></textarea>
-      <label htmlFor="date">Date:</label>
-      <input type="date" name="date" id="date" defaultValue={post.date.slice(0,10)}></input>
-      <label htmlFor="visible">Post visible?</label>
+        <form className="gap-1 font-poppins flex flex-col text-center w-1/2 ml-auto mr-auto"
+         onSubmit={handleSubmit}>
+      <label htmlFor="title" className=" font-bold text-xl">Title:</label>
+      <input className=" bg-gray-200 " type="text" name="title" id="title" defaultValue={post.title}></input>
+      <label htmlFor="text" className=" font-bold"
+      >Post content:</label>
+      <textarea className=" bg-gray-200" name="text" id="text" defaultValue={post.text}></textarea>
+      <label htmlFor="date" className=" font-bold">Date:</label>
+      <input className=" ml-auto mr-auto" type="date" name="date" id="date" defaultValue={post.date.slice(0,10)}></input>
+      <label htmlFor="visible" className=" font-bold">Post visible?</label>
       <input type="checkbox" name="visible" defaultChecked={post.visible}></input>
-      <input type="submit" value="Submit"></input>
+      <input type="submit" value="Submit" className=" mt-2 font-bold text-green-500"
+       ></input>
    </form> 
 
         {errors &&

@@ -38,10 +38,14 @@ const Login = () => {
         <div>
             {!auth ?
             <div> 
-            <h1>Login</h1>
-            <form>
-                <input type="text" name="username" onChange={handleChange}></input>
-                <input type="password" name="password" onChange={handleChange}></input>
+            <h1 className="text-2xl font-poppins text-center mb-6">Login</h1>
+            <form className="text-center font-poppins">
+                <label>Username:</label>
+                <input className=" bg-gray-200 "
+                type="text" name="username" onChange={handleChange}></input>
+                <label>Password:</label>
+                <input className=" bg-gray-200 "
+                type="password" name="password" onChange={handleChange}></input>
                 <button onClick={handleLogin} >Submit</button>
             </form>
             </div>
