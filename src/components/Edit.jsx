@@ -1,18 +1,22 @@
 import { useEffect, useState, useContext } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AuthContext } from "../App";
+import Comments from "./Comments";
+import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
     const [post, setPost] = useState();
     const [edited, setEdited] = useState(false);
     const [admin, setAdmin] = useState(true);
     const [errors, setErrors] = useState();
+    const [comments, setComments] = useState([])
 
     const { auth, setAuth } = useContext(AuthContext)
 
     const {id} = useParams()
 
     const token = localStorage.getItem("token")
+    const navigate = useNavigate()
 
     useEffect (() => {
         const fetchPost = async () => {
@@ -23,7 +27,9 @@ const Edit = () => {
                 console.log(err)
             }
         }
+        if (!auth) navigate('/login')
         fetchPost()
+        
     }, [id])
 
     const handleSubmit = async (e) => {
@@ -91,6 +97,8 @@ const Edit = () => {
                <li key={index}>{error.msg}</li>) )}
             </ul> 
         }
+
+        <Comments postid={id} comments={comments} setComments={setComments} />
         </div>
     )
 

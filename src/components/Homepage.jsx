@@ -36,7 +36,6 @@ const Homepage = () => {
             }
          });
          const status = response.status;
-         console.log(status)
          switch (status) {
             case 200: {
                const updatedPosts = posts.filter(post => post._id !== id)
