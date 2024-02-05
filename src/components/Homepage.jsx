@@ -10,14 +10,6 @@ const Homepage = () => {
    const { auth, setAuth } = useContext(AuthContext)
    const navigate = useNavigate();
 
-// If not logged in, redirect to login page
-   useEffect(() => {
-      if (!auth) {
-         navigate("/login")
-      }
-   },[navigate, auth])
-
-
    useEffect(() => {
       async function getPosts () {
          try {
@@ -29,7 +21,9 @@ const Homepage = () => {
          }
       }
       getPosts()
-   }, [])
+      // If not logged in, redirect to login
+      if (!auth) navigate('/login')
+   }, [navigate,auth,token])
 
     async function handleDelete (e, id) {
       e.preventDefault();

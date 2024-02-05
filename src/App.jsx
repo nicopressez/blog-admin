@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import Header from "./components/Header"
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const AuthContext = createContext({
   auth: false,
@@ -9,11 +9,18 @@ export const AuthContext = createContext({
 function App() {
 
   const [auth, setAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if(localStorage.getItem("token")) {
+        setAuth(true)}
+    setIsLoading(false);
+},[setAuth])
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       <Header />
-      <Outlet />
+      {!isLoading && <Outlet />}
     </AuthContext.Provider >
   )
 }
