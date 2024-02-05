@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
    const token =localStorage.getItem("token")
    const [posts, setPosts] = useState([]);
+   const [admin, setAdmin] = useState(true);
+   const { auth, setAuth } = useContext(AuthContext)
+   const navigate = useNavigate();
+
+// If not logged in, redirect to login page
+   useEffect(() => {
+      if (!auth) {
+         navigate("/login")
+      }
+   },[navigate, auth])
+
 
    useEffect(() => {
       async function getPosts () {
@@ -34,8 +47,16 @@ const Homepage = () => {
             case 200: {
                const updatedPosts = posts.filter(post => post._id !== id)
                setPosts(updatedPosts);
+            }              
+               break;
+            // If no token or it expired
+            case 404: {
+               localStorage.clear();
+               setAuth(false);
             }
-               
+               break;
+// If not admin
+            case 403: setAdmin(false);
                break;
          
             default:
@@ -46,8 +67,9 @@ const Homepage = () => {
       } 
    }
 
-    return (
+    if (auth) return (
        <div>
+   
          <Link to={"/edit"}>
           <button className="border-black border-2 font-poppins text-2xl
            mt-5  p-2 ml-20">New article</button>
@@ -63,6 +85,10 @@ const Homepage = () => {
                 </div> ))}
 
        </div>
+    )
+
+    if (!admin) return (
+      <h1>You require admin permissions in order to view and edit posts </h1>
     )
    }
 

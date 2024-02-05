@@ -1,9 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../App";
 
 const Header = () => {
     const { auth, setAuth } = useContext(AuthContext);
+
+    useEffect(() => {
+        if(localStorage.getItem("token")) {
+            setAuth(true)}
+    },[setAuth])
+
     const handleLogout = (e) => {
         e.preventDefault();
         localStorage.clear();
