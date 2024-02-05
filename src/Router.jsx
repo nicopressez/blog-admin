@@ -3,6 +3,7 @@ import App from "./App";
 import Homepage from "./components/Homepage";
 import Form from "./components/Form";
 import Login from "./components/Login";
+import Edit from "./components/Edit";
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -15,12 +16,16 @@ const Router = () => {
                     element: <Homepage />,
                 },
                 {
-                    path: '/edit',
+                    path: '/create',
                     element: <Form />
                 },
                 {
                     path: '/login',
                     element: <Login />,
+                },
+                {
+                    path: '/edit/:id',
+                    element: <Edit />
                 }
             ]
         }

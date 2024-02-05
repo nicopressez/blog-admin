@@ -64,7 +64,7 @@ const Homepage = () => {
     if (auth) return (
        <div>
    
-         <Link to={"/edit"}>
+         <Link to={"/create"}>
           <button className="border-black border-2 font-poppins text-2xl
            mt-5  p-2 ml-20">New article</button>
          </Link>
@@ -75,6 +75,10 @@ const Homepage = () => {
                     <h3>{post.date}</h3>
                     <button onClick={(e) => handleDelete(e,post._id)} className=" text-red-700 font-bold">
                      Delete</button>
+                    <Link className=" block text-blue-700 font-bold"
+                    to={`/edit/${post._id}`}>
+                        Edit
+                    </Link>
 
                 </div> ))}
 
