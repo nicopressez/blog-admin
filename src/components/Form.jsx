@@ -78,7 +78,7 @@ const Form = () => {
    <Link to={"/"}>Back to homepage</Link>
     </div>
     : !admin ?
-   <h1>You don't have the required permissions for this</h1>
+   <h1>You dont have the required permissions for this</h1>
     : 
    <h1>Your session has expired, please log back in</h1>}
 

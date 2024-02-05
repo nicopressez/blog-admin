@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react";
 
 const Homepage = () => {
+   const token =localStorage.getItem("token")
    const [posts, setPosts] = useState([]);
 
    useEffect(() => {
@@ -17,8 +18,32 @@ const Homepage = () => {
       getPosts()
    }, [])
 
-   const handleDelete = (e) => {
+    async function handleDelete (e, id) {
       e.preventDefault();
+      try {
+         const response = await fetch(`https://blog-serverapirest.fly.dev/api/posts/${id}`, {
+            method: "DELETE",
+            headers: {
+               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${token}`
+            }
+         });
+         const status = response.status;
+         console.log(status)
+         switch (status) {
+            case 200: {
+               const updatedPosts = posts.filter(post => post._id !== id)
+               setPosts(updatedPosts);
+            }
+               
+               break;
+         
+            default:
+               break;
+         }
+      } catch(err) {
+         console.log(err)
+      } 
    }
 
     return (
@@ -32,7 +57,7 @@ const Homepage = () => {
                   font-poppins mb-5" >
                     <h2 className="font-bold text-xl">{post.title}</h2>
                     <h3>{post.date}</h3>
-                    <button onClick={handleDelete} className=" text-red-700 font-bold">
+                    <button onClick={(e) => handleDelete(e,post._id)} className=" text-red-700 font-bold">
                      Delete</button>
 
                 </div> ))}
